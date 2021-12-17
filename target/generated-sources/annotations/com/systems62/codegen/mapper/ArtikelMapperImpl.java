@@ -2,11 +2,11 @@ package com.systems62.codegen.mapper;
 
 import com.systems62.codegen.model.Artikel;
 import com.systems62.codegen.model.ArtikelEntity;
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-12-17T19:42:39+0100",
+    date = "2021-12-17T21:08:32+0100",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.1 (Eclipse Adoptium)"
 )
 public class ArtikelMapperImpl implements ArtikelMapper {

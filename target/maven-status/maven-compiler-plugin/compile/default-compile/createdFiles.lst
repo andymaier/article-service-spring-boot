@@ -3,13 +3,10 @@ com/systems62/codegen/RFC3339DateFormat.class
 com/systems62/codegen/OpenAPI2SpringBoot$ExitException.class
 com/systems62/codegen/mapper/ArtikelMapper.class
 com/systems62/codegen/repositories/ArtikelRepo.class
-com/systems62/codegen/config/HomeController.class
 com/systems62/codegen/controllers/ApiUtil.class
 com/systems62/codegen/mapper/ArtikelMapperImpl.class
 com/systems62/codegen/model/Artikel.class
 com/systems62/codegen/OpenAPI2SpringBoot$1.class
 com/systems62/codegen/model/ArtikelEntity.class
 com/systems62/codegen/controllers/ArtikelApi.class
-com/systems62/codegen/config/OpenAPIDocumentationConfig.class
 com/systems62/codegen/OpenAPI2SpringBoot.class
-com/systems62/codegen/config/OpenAPIDocumentationConfig$BasePathAwareRelativePathProvider.class

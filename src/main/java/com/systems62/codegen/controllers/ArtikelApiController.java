@@ -14,12 +14,12 @@ import com.systems62.codegen.repositories.ArtikelRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T17:22:51.930354+01:00[Europe/Berlin]")
-@Controller
-@RequestMapping("${openapi.katalogAPIVKB3.base-path:/test2342678/KatalogAPIVKB3/KatalogAPIVKB3}")
+@RestController
+@RequestMapping("/api")
 public class ArtikelApiController implements ArtikelApi {
 
     @Autowired

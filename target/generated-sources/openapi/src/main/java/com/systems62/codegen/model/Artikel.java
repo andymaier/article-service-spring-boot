@@ -14,8 +14,7 @@ import javax.validation.constraints.*;
 /**
  * Artikel
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T19:42:37.231626+01:00[Europe/Berlin]")
-
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T21:08:29.739730+01:00[Europe/Berlin]")
 public class Artikel   {
   @JsonProperty("id")
   private UUID id;
@@ -58,7 +57,7 @@ public class Artikel   {
   */
   @ApiModelProperty(example = "HansWurst", value = "Dies ist der Name des Artikels")
 
-@Size(max=20) 
+@Size(max = 20) 
   public String getName() {
     return name;
   }
@@ -80,7 +79,7 @@ public class Artikel   {
   @ApiModelProperty(example = "3.99", value = "Dies ist der Preis des Artikels")
 
   @Valid
-@DecimalMin("0")
+@DecimalMin("0") 
   public BigDecimal getPreis() {
     return preis;
   }
@@ -91,7 +90,7 @@ public class Artikel   {
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -125,7 +124,7 @@ public class Artikel   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
