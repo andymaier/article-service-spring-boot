@@ -1,43 +1,86 @@
 openapi: 3.0.0
 info:
-  version: KatalogAPIVKB3
-  title: KatalogAPIVKB3
-  description: KatalogAPIVKB3
-paths: 
-
+  version: '1'
+  title: CatalogAPI
+  description: CatalogAPI
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/systems62.com/Catalog/1
+paths:
   /artikel/:
     get:
       tags:
         - Shop
-      summary: Gebe alle Artikel
-      description: Liefert alle Artikel zurück
+      summary: Gebe alle Artikel zurück
+      description: Dieser Endpunkt liefert alle Artikel zurück
       responses:
         200:
-          description: OK
+          description: Ok
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Artikel'
+                $ref: '#/components/schemas/ArtikelList'
     post:
       tags:
         - Shop
-      summary: Lege einen Artikel an
-      description: Mit diesem Endpunkt wird ein Artikel angelegt
+      summary: Erstelle einen Artikel
+      description: |
+        # Legt einen Artikel an.
+        Ein **Artikel** besteht aus:
+        
+          - Name
+          - Preis
+          
+        Der Name legt fest .... und der Preis ist wichtig.
+        
+        Inline-style: 
+        ![alt text](https://www.fiori-entwickler.com/files/bilder/content/Grafik_SAP-Architektur.png "Unsere Architektur")
+        
+        
+        1. First ordered list item
+        2. Another item
+        ⋅⋅* Unordered sub-list. 
+        1. Actual numbers don't matter, just that it's a number
+        ⋅⋅1. Ordered sub-list
+        4. And another item.
+
+        ⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
+
+        ⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+        ⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+        ⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
+
+        * Unordered list can use asterisks
+        - Or minuses
+        + Or pluses
+        
+        | Tables        | Are           | Cool  |
+        | ------------- |:-------------:| -----:|
+        | col 3 is      | right-aligned | $1600 |
+        | col 2 is      | centered      |   $12 |
+        | zebra stripes | are neat      |    $1 |
+      
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Artikel'
+      
       responses:
         201:
-          description: Created
+          description: created
+          headers:
+            Location:
+              description: URI des neuen Artikels
+              schema:
+                type: string
+                format: uri
+                example: .../artikel/<id_des_neuen_Artikels>
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Artikel'
-
+                $ref: '#/components/schemas/ArtikelResponse'
   /artikel/{aid}:
     parameters:
       - in: path
@@ -48,31 +91,108 @@ paths:
     get:
       tags:
         - Shop
-      summary: Gebe einen Artikel zurück
-      description: Liefert einen Artikel aufgrund der aid zurück
+      summary: Gebe einen Artikel anhand der ID zurück
+      description: Dieser Endpunkt liefert einen Artikel anhand der ID zurück
       responses:
         200:
-          description: OK
+          description: Ok
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Artikel'
-    
-    
+                $ref: '#/components/schemas/ArtikelResponse'
+    put:
+      tags:
+        - Shop
+      summary: Ändere einen Artikel anhand der ID
+      description: Dieser Endpunkt ändert/ersetzt einen Artikel anhand der ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Artikel'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtikelResponse'
+    delete:
+      tags:
+        - Shop
+      summary: Lösche einen Artikel anhand der ID
+      description: Dieser Endpunkt löscht einen Artikel anhand der ID
+      responses:
+        200:
+          description: Ok
+    patch:
+      tags:
+        - Shop
+      summary: Ändere einen Artikel anhand der ID
+      description: Dieser Endpunkt ändert/ersetzt einen Artikel anhand der ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtikelPatch'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtikelResponse'
+  
+  
 components:
   schemas:
-    Artikel:
+    ArtikelPatch:
       properties:
-        id:
-          type: string
-          format: uuid     
         name:
           type: string
+          example: Grapefruit
           maxLength: 20
-          example: HansWurst
-          description: Dies ist der Name des Artikels
+          description: Name des Artikels
         preis:
           type: number
+          example: 0.99
           minimum: 0
-          example: 3.99
-          description: Dies ist der Preis des Artikels
+          description: Preis des Artikels
+    ArtikelList:
+      properties:
+        artikel: 
+          type: array
+          items: 
+            $ref: '#/components/schemas/ArtikelResponse'
+    ArtikelResponse:
+      properties:
+        aid:
+          type: string
+          minLength: 1
+          description: ID des Artikels          
+        name:
+          type: string
+          example: Grapefruit
+          maxLength: 20
+          description: Name des Artikels
+        preis:
+          type: number
+          example: 0.99
+          minimum: 0
+          description: Preis des Artikels
+      required: 
+        - preis
+    Artikel:
+      properties:
+        name:
+          type: string
+          example: Grapefruit
+          maxLength: 20
+          description: Name des Artikels
+        preis:
+          type: number
+          example: 0.99
+          minimum: 0
+          description: Preis des Artikels
+      required: 
+        - preis
