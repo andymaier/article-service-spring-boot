@@ -1,19 +1,18 @@
 package com.systems62.codegen.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
 import com.systems62.codegen.model.Artikel;
 import com.systems62.codegen.model.ArtikelEntity;
 import com.systems62.codegen.model.ArtikelResponse;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface ArtikelMapper {
  
     ArtikelMapper INSTANCE = Mappers.getMapper( ArtikelMapper.class );
  
-    Artikel artikelEntityToArtikel(ArtikelEntity artikel);
+    Artikel artikelEntityToArtikel(ArtikelEntity artikel);    
         
     //ArtikelResponse artikelEntityToArtikelResponsArtikel(ArtikelEntity artikel);
     

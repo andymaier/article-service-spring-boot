@@ -1,5 +1,8 @@
 package com.systems62.codegen.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +51,11 @@ public class ArtikelApiController implements ArtikelApi {
 
     @Override
     public ResponseEntity<ArtikelList> artikelGet() {
-        // TODO Auto-generated method stub
-        return ArtikelApi.super.artikelGet();
+        List<ArtikelResponse> list = new ArrayList<>();
+        repo.findAll().forEach(x -> list.add(ArtikelMapper.INSTANCE.artikelEntityToArtikelResponsArtikel(x)));
+        ArtikelList artikelList = new ArtikelList();        
+        artikelList.setArtikel(list);
+        return ResponseEntity.ok(artikelList);
     }
 
     @Override
