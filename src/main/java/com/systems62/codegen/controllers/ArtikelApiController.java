@@ -2,6 +2,7 @@ package com.systems62.codegen.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -33,8 +34,11 @@ public class ArtikelApiController implements ArtikelApi {
 
     @Override
     public ResponseEntity<ArtikelResponse> artikelAidGet(String aid) {
-        // TODO Auto-generated method stub
-        return ArtikelApi.super.artikelAidGet(aid);
+        if (repo.findById(UUID.fromString(aid)).isPresent()) {
+            ArtikelResponse artikel = ArtikelMapper.INSTANCE.artikelEntityToArtikelResponsArtikel(repo.findById(UUID.fromString(aid)).get());
+            return ResponseEntity.ok(artikel);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
