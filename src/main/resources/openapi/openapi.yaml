@@ -1,12 +1,11 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  version: '1'
   title: CatalogAPI
   description: CatalogAPI
+  version: '1'
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/systems62.com/Catalog/1
+  - url: https://virtserver.swaggerhub.com/systems62.com/Catalog/1
+    description: SwaggerHub API Auto Mocking
 paths:
   /artikel/:
     get:
@@ -15,7 +14,7 @@ paths:
       summary: Gebe alle Artikel zurück
       description: Dieser Endpunkt liefert alle Artikel zurück
       responses:
-        200:
+        '200':
           description: Ok
           content:
             application/json:
@@ -26,49 +25,19 @@ paths:
         - Shop
       summary: Erstelle einen Artikel
       description: |
-        # Legt einen Artikel an.
-        Ein **Artikel** besteht aus:
-        
-          - Name
-          - Preis
-          
+        Legt einen Artikel an. Ein **Artikel** besteht aus:
+
+        * Name
+        * Preis
+
         Der Name legt fest .... und der Preis ist wichtig.
-        
-        Inline-style: 
-        ![alt text](https://www.fiori-entwickler.com/files/bilder/content/Grafik_SAP-Architektur.png "Unsere Architektur")
-        
-        
-        1. First ordered list item
-        2. Another item
-        ⋅⋅* Unordered sub-list. 
-        1. Actual numbers don't matter, just that it's a number
-        ⋅⋅1. Ordered sub-list
-        4. And another item.
-
-        ⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
-
-        ⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
-        ⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
-        ⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
-
-        * Unordered list can use asterisks
-        - Or minuses
-        + Or pluses
-        
-        | Tables        | Are           | Cool  |
-        | ------------- |:-------------:| -----:|
-        | col 3 is      | right-aligned | $1600 |
-        | col 2 is      | centered      |   $12 |
-        | zebra stripes | are neat      |    $1 |
-      
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Artikel'
-      
       responses:
-        201:
+        '201':
           description: created
           headers:
             Location:
@@ -76,31 +45,42 @@ paths:
               schema:
                 type: string
                 format: uri
-                example: .../artikel/<id_des_neuen_Artikels>
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArtikelResponse'
-  /artikel/{aid}:
-    parameters:
-      - in: path
-        name: aid
-        schema:
-          type: string
-        required: true
+  /artikel/{aid}:    
     get:
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            description: ID des Artikels
+            example: 12345678-90ab-cdef-0123-456789abcdef
       tags:
         - Shop
       summary: Gebe einen Artikel anhand der ID zurück
       description: Dieser Endpunkt liefert einen Artikel anhand der ID zurück
       responses:
-        200:
+        '200':
           description: Ok
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArtikelResponse'
     put:
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            description: ID des Artikels
+            example: 12345678-90ab-cdef-0123-456789abcdef
       tags:
         - Shop
       summary: Ändere einen Artikel anhand der ID
@@ -111,21 +91,39 @@ paths:
             schema:
               $ref: '#/components/schemas/Artikel'
       responses:
-        200:
+        '200':
           description: Ok
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArtikelResponse'
     delete:
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            description: ID des Artikels
+            example: 12345678-90ab-cdef-0123-456789abcdef
       tags:
         - Shop
       summary: Lösche einen Artikel anhand der ID
       description: Dieser Endpunkt löscht einen Artikel anhand der ID
       responses:
-        200:
+        '200':
           description: Ok
     patch:
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            description: ID des Artikels
+            example: 12345678-90ab-cdef-0123-456789abcdef
       tags:
         - Shop
       summary: Ändere einen Artikel anhand der ID
@@ -136,53 +134,53 @@ paths:
             schema:
               $ref: '#/components/schemas/ArtikelPatch'
       responses:
-        200:
+        '200':
           description: Ok
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArtikelResponse'
-  
-  
+
 components:
   schemas:
     ArtikelPatch:
+      type: object
       properties:
         name:
           type: string
-          example: Grapefruit
           maxLength: 20
           description: Name des Artikels
+          example: Grapefruit
         preis:
           type: number
-          example: 0.99
           minimum: 0
           description: Preis des Artikels
+          example: 0.99
     ArtikelList:
+      type: object
       properties:
-        artikel: 
+        artikel:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/ArtikelResponse'
     ArtikelResponse:
+      type: object
       properties:
         aid:
           type: string
           minLength: 1
-          description: ID des Artikels          
+          description: ID des Artikels
+          example: 12345678-90ab-cdef-0123-456789abcdef
         name:
           type: string
-          example: Grapefruit
           maxLength: 20
           description: Name des Artikels
+          example: Grapefruit
         preis:
           type: number
-          example: 0.99
           minimum: 0
-          description: Preis des Artikels
-      required: 
-        - preis
     Artikel:
+      type: object
       properties:
         name:
           type: string

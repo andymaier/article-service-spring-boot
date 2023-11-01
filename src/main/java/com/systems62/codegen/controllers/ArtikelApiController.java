@@ -68,44 +68,4 @@ public class ArtikelApiController implements ArtikelApi {
         ArtikelResponse artikelSaved = ArtikelMapper.INSTANCE.artikelEntityToArtikelResponsArtikel(repo.save(entity));
         return ResponseEntity.ok().body(artikelSaved);
     }
-
-
-    /*@Autowired
-    ArtikelRepo repo;
-
-    private final NativeWebRequest request;
-
-    @org.springframework.beans.factory.annotation.Autowired
-    public ArtikelApiController(NativeWebRequest request) {
-        this.request = request;
-    }
-
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return Optional.ofNullable(request);
-    }
-
-    @Override
-    public ResponseEntity<Artikel> artikelPost(@Valid Artikel artikel) {        
-        ArtikelEntity entity = ArtikelMapper.INSTANCE.artikelToEntitiyArtikel(artikel);
-        Artikel artikelSaved = ArtikelMapper.INSTANCE.artikelEntityToArtikel(repo.save(entity));
-        return ResponseEntity.ok().body(artikelSaved);
-    }
-
-    @Override
-    public ResponseEntity<Artikel> artikelAidGet(String aid) {
-        if (repo.findById(UUID.fromString(aid)).isPresent()) {
-            Artikel artikel = ArtikelMapper.INSTANCE.artikelEntityToArtikel(repo.findById(UUID.fromString(aid)).get());
-            return ResponseEntity.ok(artikel);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @Override
-    public ResponseEntity<List<Artikel>> artikelGet() {
-        List<Artikel> list = new ArrayList<>();
-        repo.findAll().forEach(x -> list.add(ArtikelMapper.INSTANCE.artikelEntityToArtikel(x)));
-        return ResponseEntity.ok(list);
-    }*/
-    
 }
