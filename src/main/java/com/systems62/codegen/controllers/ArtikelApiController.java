@@ -18,7 +18,6 @@ import com.systems62.codegen.model.ArtikelList;
 import com.systems62.codegen.model.ArtikelPatch;
 import com.systems62.codegen.model.ArtikelResponse;
 import com.systems62.codegen.repositories.ArtikelRepo;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T17:22:51.930354+01:00[Europe/Berlin]")
 @RestController
 @RequestMapping("/api")
 public class ArtikelApiController implements ArtikelApi {
