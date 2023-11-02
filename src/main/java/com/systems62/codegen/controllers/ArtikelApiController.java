@@ -18,6 +18,7 @@ import com.systems62.codegen.model.ArtikelList;
 import com.systems62.codegen.model.ArtikelPatch;
 import com.systems62.codegen.model.ArtikelResponse;
 import com.systems62.codegen.repositories.ArtikelRepo;
+
 @RestController
 @RequestMapping("/api")
 public class ArtikelApiController implements ArtikelApi {
