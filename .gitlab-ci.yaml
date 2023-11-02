@@ -1,24 +1,39 @@
 stages:
   - build
+  - package
   - deploy
 
 variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  GIT_STRATEGY: clone
+  GIT_DEPTH: 1
+  GIT_URL: "https://github.com/andymaier/spring-boot-codegenerator"
+  GIT_BRANCH: "master"
+  IMAGE_NAME: registry.ocp4.de/andymaier/catalog
+  IMAGE_TAG: $CI_COMMIT_SHA
 
-cache:
-  paths:
-    - .m2/repository
-    - target/
+before_script:
+  - git clone --branch $GIT_BRANCH $GIT_URL
 
 build:
   stage: build
   script:
-    - mvn $MAVEN_CLI_OPTS compile
+    - mvn test
+    - mvn package
+
+package:
+  stage: package
+  services:
+    - docker:dind
+  script:
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $IMAGE_NAME:$IMAGE_TAG
 
 deploy:
   stage: deploy
   script:
-    - mvn $MAVEN_CLI_OPTS package
-    - scp target/spring-boot-codegenerator-KatalogAPIVKB3.jar azureuser@my-azure-vm:/path/to/deploy
-    - ssh azureuser@my-azure-vm "java -jar /path/to/deploy/my-app.jar"
+    - scp docker-compose.yml azureuser@catalog.ocp4.de:/home/azureuser/catalog/docker-compose.yml
+    - ssh azureuser@catalog.ocp4.de "docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY"
+    - ssh azureuser@catalog.ocp4.de "docker pull $IMAGE_NAME:$IMAGE_TAG"
+    - ssh azureuser@catalog.ocp4.de "docker-compose up -d"
+    - ssh -t azureuser@catalog.ocp4.de "cd /home/azureuser/catalog/ && docker-compose up -d"
