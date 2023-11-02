@@ -1,0 +1,24 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository
+    - target/
+
+build:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS compile
+
+deploy:
+  stage: deploy
+  script:
+    - mvn $MAVEN_CLI_OPTS package
+    - scp target/spring-boot-codegenerator-KatalogAPIVKB3.jar azureuser@my-azure-vm:/path/to/deploy
+    - ssh azureuser@my-azure-vm "java -jar /path/to/deploy/my-app.jar"

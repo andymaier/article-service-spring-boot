@@ -49,7 +49,11 @@ public class OpenAPI2SpringBoot implements CommandLineRunner {
                             .title("Catalog API")
                             .description("CatalogAPI")
                             .version("1"))
-                    .servers(List.of(new Server().url("http://localhost:8080"), new Server().url("http://ocp4.de:8080")));
+                    .servers(List.of(
+                        new Server().url("http://localhost:8080"), 
+                        new Server().url("http://ocp4.de:8080"),
+                        new Server().url("http://localhost:8089")
+                        ));
             openAPI.setSpecVersion(SpecVersion.V31);
             return openAPI;
         }
