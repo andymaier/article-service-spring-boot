@@ -1,0 +1,73 @@
+type Query {
+  """
+  Dieser Endpunkt liefert alle Artikel zurück
+  
+  Equivalent to GET /artikel/
+  """
+  artikelList: [ArtikelResponse]
+
+  """
+  Dieser Endpunkt liefert einen Artikel anhand der ID zurück
+  
+  Equivalent to GET /artikel/{aid}
+  """
+  artikelResponse(aid: String!): ArtikelResponse
+}
+
+type ArtikelList {
+  artikel: [ArtikelResponse]
+}
+
+type ArtikelResponse {
+  """ID des Artikels"""
+  aid: String
+
+  """Name des Artikels"""
+  name: String
+  preis: Float
+}
+
+type Mutation {
+  """
+  Dieser Endpunkt ändert/ersetzt einen Artikel anhand der ID
+  
+  Equivalent to PATCH /artikel/{aid}
+  """
+  patchArtikelAid(aid: String!, artikelPatchInput: ArtikelPatchInput): ArtikelResponse
+
+  """
+  Legt einen Artikel an. Ein **Artikel** besteht aus:
+  
+  * Name
+  * Preis
+  
+  Der Name legt fest .... und der Preis ist wichtig.
+  
+  
+  Equivalent to POST /artikel/
+  """
+  postArtikel(artikel2Input: Artikel2Input): ArtikelResponse
+
+  """
+  Dieser Endpunkt ändert/ersetzt einen Artikel anhand der ID
+  
+  Equivalent to PUT /artikel/{aid}
+  """
+  putArtikelAid(aid: String!, artikel2Input: Artikel2Input): ArtikelResponse
+}
+
+input ArtikelPatchInput {
+  """Name des Artikels"""
+  name: String
+
+  """Preis des Artikels"""
+  preis: Float
+}
+
+input Artikel2Input {
+  """Name des Artikels"""
+  name: String
+
+  """Preis des Artikels"""
+  preis: Float!
+}

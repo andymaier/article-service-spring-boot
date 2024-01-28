@@ -1,11 +1,13 @@
-openapi: 3.1.0
+openapi: 3.0.1
 info:
   title: CatalogAPI
   description: CatalogAPI
   version: '1'
 servers:
-  - url: https://virtserver.swaggerhub.com/systems62.com/Catalog/1
-    description: SwaggerHub API Auto Mocking
+  - url: localhost:8080
+    description: local server
+  #- url: https://virtserver.swaggerhub.com/systems62.com/Catalog/1
+  #  description: SwaggerHub API Auto Mocking
 paths:
   /artikel/:
     get:
