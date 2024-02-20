@@ -50,6 +50,7 @@ public class OpenAPI2SpringBoot implements CommandLineRunner {
                             .description("CatalogAPI")
                             .version("1"))
                     .servers(List.of(
+                        new Server().url("http://ocp4.de:8088"),
                         new Server().url("http://localhost:8080"), 
                         new Server().url("http://ocp4.de:8080"),
                         new Server().url("http://localhost:8089")
